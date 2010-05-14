@@ -1,10 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.gemserk.datastore</groupId>
 	<artifactId>datastore</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.0</version>
 	<name>datastore</name>
 	<url>http://www.gemserk.com</url>
 	<organization>
@@ -16,9 +15,9 @@
 		<url>https://ci.gemserk.com/hudson/job/datastore/</url>
 	</ciManagement>
 	<scm>
-		<url>https://svn.gemserk.com/utils/datastore/trunk/datastore</url>
-		<connection>scm:https://svn.gemserk.com/utils/datastore/trunk/datastore</connection>
-		<developerConnection>scm:svn:https://svn.gemserk.com/utils/datastore/trunk/datastore</developerConnection>
+		<url>https://svn.gemserk.com/utils/datastore/tags/datastore-1.0</url>
+		<connection>scm:https://svn.gemserk.com/utils/datastore/tags/datastore-1.0</connection>
+		<developerConnection>scm:svn:https://svn.gemserk.com/utils/datastore/tags/datastore-1.0</developerConnection>
 	</scm>
 	<distributionManagement>
 		<repository>
