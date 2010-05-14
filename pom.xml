@@ -3,7 +3,7 @@
 	<groupId>com.gemserk.datastore</groupId>
 	<artifactId>datastore</artifactId>
 	<packaging>jar</packaging>
-	<version>1.0</version>
+	<version>1.1-SNAPSHOT</version>
 	<name>datastore</name>
 	<url>http://www.gemserk.com</url>
 	<organization>
@@ -15,9 +15,9 @@
 		<url>https://ci.gemserk.com/hudson/job/datastore/</url>
 	</ciManagement>
 	<scm>
-		<url>https://svn.gemserk.com/utils/datastore/tags/datastore-1.0</url>
-		<connection>scm:https://svn.gemserk.com/utils/datastore/tags/datastore-1.0</connection>
-		<developerConnection>scm:svn:https://svn.gemserk.com/utils/datastore/tags/datastore-1.0</developerConnection>
+		<url>https://svn.gemserk.com/utils/datastore/trunk/datastore</url>
+		<connection>scm:https://svn.gemserk.com/utils/datastore/trunk/datastore</connection>
+		<developerConnection>scm:svn:https://svn.gemserk.com/utils/datastore/trunk/datastore</developerConnection>
 	</scm>
 	<distributionManagement>
 		<repository>
