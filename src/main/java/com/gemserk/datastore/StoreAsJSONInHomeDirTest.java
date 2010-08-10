@@ -6,15 +6,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
-import net.sf.json.JSONArray;
-
-import org.apache.commons.io.FileUtils;
-
 import com.google.common.collect.Sets;
 
 public class StoreAsJSONInHomeDirTest {
 
-		
+	@SuppressWarnings("serial")
 	public static void main(String[] args) throws IOException {
 
 		Collection<Data> datas = new ArrayList<Data>();

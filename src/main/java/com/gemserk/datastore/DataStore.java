@@ -11,6 +11,11 @@ public interface DataStore {
 	 */
 	String submit(Data data);
 	
+	/**
+	 * Returns all the data tagged with the given tags
+	 * @param tags
+	 * @return
+	 */
 	Collection<Data> get(Set<String> tags);
 
 }

@@ -6,9 +6,9 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.apache.commons.io.FileUtils;
-
 import net.sf.json.JSONArray;
+
+import org.apache.commons.io.FileUtils;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
@@ -23,7 +23,7 @@ public class DataStoreJSONInFileImpl implements DataStore {
 
 	@Override
 	public Collection<Data> get(final Set<String> tags) {
-		
+
 		try {
 			ensureFileExists();
 			String readData = getFileContent();
@@ -36,7 +36,7 @@ public class DataStoreJSONInFileImpl implements DataStore {
 				}
 			});
 		} catch (IOException e) {
-			throw new RuntimeException("couldnt read storage: " + storage,e);
+			throw new RuntimeException("couldnt read storage: " + storage, e);
 		}
 	}
 
@@ -53,7 +53,7 @@ public class DataStoreJSONInFileImpl implements DataStore {
 
 			return data.getId();
 		} catch (IOException e) {
-			throw new RuntimeException("couldnt write to  storage: " + storage,e);
+			throw new RuntimeException("couldnt write to  storage: " + storage, e);
 		}
 	}
 
@@ -64,16 +64,15 @@ public class DataStoreJSONInFileImpl implements DataStore {
 	void writeFileContent(String value) throws IOException {
 		FileUtils.writeStringToFile(storage, value);
 	}
-	
-	void ensureFileExists() throws IOException{
-		if(!storage.exists()){
+
+	void ensureFileExists() throws IOException {
+		if (!storage.exists())
 			writeFileContent("[]");
-		}
 	}
 
+	@SuppressWarnings("unchecked")
 	Collection<Data> parseData(String data) {
-		JSONArray jobjectNew = JSONArray.fromObject(data);
-		return JSONArray.toCollection(jobjectNew, Data.class);
+		return JSONArray.toCollection(JSONArray.fromObject(data), Data.class);
 	}
 
 	String serializeData(Collection<Data> dataCollection) {
