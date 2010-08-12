@@ -1,5 +1,6 @@
 package com.gemserk.scores;
 
+import java.text.MessageFormat;
 import java.util.Map;
 import java.util.Set;
 
@@ -75,5 +76,10 @@ public class Score {
 		this.tags = tags;
 		this.data = data;
 	}
-
+	
+	@Override
+	public String toString() {
+		return MessageFormat.format("SCORE [id:{0}, name:{1}, points:{2}, tags:{3}, data:{4}]", id, name, points, tags, data);
+	}
+	
 }

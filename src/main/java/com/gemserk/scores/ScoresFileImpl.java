@@ -99,8 +99,8 @@ public class ScoresFileImpl implements Scores {
 	}
 
 	@SuppressWarnings("unchecked")
-	Collection<Score> parseData(String data) {
-		return JSONArray.toCollection(JSONArray.fromObject(data), Score.class);
+	Collection<Score> parseData(String scoresJsonString) {
+		return JSONArray.toCollection(JSONArray.fromObject(scoresJsonString), Score.class);
 	}
 
 	String serializeData(Collection<Score> dataCollection) {
