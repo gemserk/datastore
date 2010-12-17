@@ -18,4 +18,9 @@ public interface DataStore {
 	 */
 	Collection<Data> get(Set<String> tags);
 
+	/**
+	 * Removes from all items with the given tags.
+	 * @param tags the Tags the items should have to be removed.
+	 */
+	void remove(Set<String> tags);
 }

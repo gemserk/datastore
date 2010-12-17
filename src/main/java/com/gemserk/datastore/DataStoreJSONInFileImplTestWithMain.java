@@ -12,7 +12,7 @@ import org.apache.commons.io.FileUtils;
 
 import com.google.common.collect.Sets;
 
-public class DataStoreJSONInFileImplTest {
+public class DataStoreJSONInFileImplTestWithMain {
 
 	public static class DataContainer {
 		Collection<Data> datas;

@@ -10,21 +10,22 @@ import com.google.common.collect.Sets;
 public class ScoresImplementationsTests {
 
 	public static void main(String[] args) {
-		test2();
+		test4();
 	}
 
 	public static void test1() {
-		ScoresHttpImpl scoresHttpImpl = new ScoresHttpImpl("dsadfasfdsfaasd", "http://localhost:8080");
+		Scores scoresHttpImpl = new ScoresHttpImpl("dsadfasfdsfaasd", "http://localhost:8080");
 
 		HashSet<String> tags = Sets.newHashSet("level1", "easy", "superuser");
 
-		HashMap<String, Object> data = new HashMap<String, Object>();
-		data.put("playedTime", 10);
-		data.put("enemiesDead", 500);
+		HashMap<String, Object> data = new HashMap<String, Object>() {{ 
+			put("timeAlive", 180);
+			put("enemiesKilled", 500);
+		}};
 
-		String scoreId = scoresHttpImpl.submit(new Score("player", 10000, tags, data));
+		String scoreId = scoresHttpImpl.submit(new Score("player", 12500, tags, data));
 
-		System.out.println(scoreId);
+		System.out.println("Score submited with id: " + scoreId);
 	}
 
 	public static void test2() {
@@ -51,4 +52,15 @@ public class ScoresImplementationsTests {
 		}
 	}
 
+	public static void test4() {
+		
+		Scores scores = new ScoresHttpImpl("9eba9d1d13f8190d934e3dd0f58f58ca", "http://gemserkscores.appspot.com/");
+
+		HashSet<String> tags = Sets.newHashSet("level01");
+		HashMap<String, Object> data = new HashMap<String, Object>();
+		
+		scores.submit(new Score("ruben01", 50, tags, data));
+
+	}
+	
 }

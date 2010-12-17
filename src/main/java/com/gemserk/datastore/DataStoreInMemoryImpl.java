@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
+
 public class DataStoreInMemoryImpl implements DataStore {
 	
 	Collection<Data> dataCollection = new ArrayList<Data>();
@@ -18,6 +21,21 @@ public class DataStoreInMemoryImpl implements DataStore {
 		data.setId(Integer.toHexString(System.identityHashCode(data)));
 		dataCollection.add(data);
 		return data.getId();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void remove(final Set<String> tags) {
+		
+		ArrayList<Data> filteredCollection = new ArrayList(Collections2.filter(dataCollection, new Predicate<Data>() {
+			@Override
+			public boolean apply(Data data) {
+				return data.getTags().containsAll(tags);
+			}
+		}));
+		
+		dataCollection.removeAll(filteredCollection);
+		
 	}
 
 }

@@ -132,7 +132,7 @@ public class ScoresHttpImpl implements Scores {
 			HttpPost httppost = new HttpPost(submitUrl);
 			httppost.setEntity(entity);
 			
-			logger.error("submitting new score to the server: " + score);
+			logger.info("submitting new score to the server: " + score);
 
 			HttpResponse response = httpClient.execute(httppost);
 

@@ -2,6 +2,7 @@ package com.gemserk.datastore;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,8 +18,22 @@ public class DataStoreJSONInFileImpl implements DataStore {
 
 	File storage;
 
+	DataSerializer dataSerializer;
+
+	DataFile dataFile;
+
 	public DataStoreJSONInFileImpl(File storage) {
+		this(storage, new DataSerializerJSonImpl());
+	}
+
+	public DataStoreJSONInFileImpl(File storage, DataSerializer dataSerializer) {
+		this(storage, dataSerializer, new DataFile());
+	}
+
+	public DataStoreJSONInFileImpl(File storage, DataSerializer dataSerializer, DataFile dataFile) {
 		this.storage = storage;
+		this.dataSerializer = dataSerializer;
+		this.dataFile = dataFile;
 	}
 
 	@Override
@@ -28,7 +43,7 @@ public class DataStoreJSONInFileImpl implements DataStore {
 			ensureFileExists();
 			String readData = getFileContent();
 
-			Collection<Data> dataCollection = parseData(readData);
+			Collection<Data> dataCollection = dataSerializer.parseData(readData);
 			return Collections2.filter(dataCollection, new Predicate<Data>() {
 				@Override
 				public boolean apply(Data data) {
@@ -42,27 +57,43 @@ public class DataStoreJSONInFileImpl implements DataStore {
 
 	@Override
 	public String submit(Data data) {
-		try {
-			data.setId(Integer.toHexString(System.identityHashCode(data)));
+		data.setId(Integer.toHexString(System.identityHashCode(data)));
 
-			Collection<Data> previousData = get(new HashSet<String>());
-			previousData.add(data);
+		Collection<Data> previousData = get(new HashSet<String>());
+		previousData.add(data);
 
-			String dataToStore = serializeData(previousData);
-			writeFileContent(dataToStore);
+		String dataToStore = dataSerializer.serializeData(previousData);
+		writeFileContent(dataToStore);
 
-			return data.getId();
-		} catch (IOException e) {
-			throw new RuntimeException("couldnt write to  storage: " + storage, e);
+		return data.getId();
+	}
+
+	static class DataFile {
+
+		String getFileContent(File storage) {
+			try {
+				return FileUtils.readFileToString(storage);
+			} catch (IOException e) {
+				throw new RuntimeException("failed to get file contents from " + storage.getAbsolutePath(), e);
+			}
 		}
+
+		void writeFileContent(File storage, String value) {
+			try {
+				FileUtils.writeStringToFile(storage, value);
+			} catch (IOException e) {
+				throw new RuntimeException("failed to write file contents to " + storage.getAbsolutePath(), e);
+			}
+		}
+
 	}
 
-	String getFileContent() throws IOException {
-		return FileUtils.readFileToString(storage);
+	String getFileContent() {
+		return dataFile.getFileContent(storage);
 	}
 
-	void writeFileContent(String value) throws IOException {
-		FileUtils.writeStringToFile(storage, value);
+	void writeFileContent(String value) {
+		dataFile.writeFileContent(storage, value);
 	}
 
 	void ensureFileExists() throws IOException {
@@ -70,15 +101,50 @@ public class DataStoreJSONInFileImpl implements DataStore {
 			writeFileContent("[]");
 	}
 
-	@SuppressWarnings("unchecked")
-	Collection<Data> parseData(String data) {
-		return JSONArray.toCollection(JSONArray.fromObject(data), Data.class);
+	static interface DataSerializer {
+
+		Collection<Data> parseData(String data);
+
+		String serializeData(Collection<Data> dataCollection);
+
 	}
 
-	String serializeData(Collection<Data> dataCollection) {
-		JSONArray jobject = JSONArray.fromObject(dataCollection);
-		String jsonData = jobject.toString(1);
-		return jsonData;
+	static class DataSerializerJSonImpl implements DataSerializer {
+
+		@SuppressWarnings("unchecked")
+		public Collection<Data> parseData(String data) {
+			return JSONArray.toCollection(JSONArray.fromObject(data), Data.class);
+		}
+
+		public String serializeData(Collection<Data> dataCollection) {
+			JSONArray jobject = JSONArray.fromObject(dataCollection);
+			String jsonData = jobject.toString(1);
+			return jsonData;
+		}
+
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void remove(final Set<String> tags) {
+
+		String readData = getFileContent();
+		Collection<Data> dataCollection = dataSerializer.parseData(readData);
+
+		ArrayList<Data> previousCollection = new ArrayList<Data>(dataCollection);
+
+		ArrayList<Data> filteredCollection = new ArrayList(Collections2.filter(dataCollection, new Predicate<Data>() {
+			@Override
+			public boolean apply(Data data) {
+				return data.getTags().containsAll(tags);
+			}
+		}));
+
+		previousCollection.removeAll(filteredCollection);
+
+		String dataToStore = dataSerializer.serializeData(previousCollection);
+		writeFileContent(dataToStore);
+
 	}
 
 }
