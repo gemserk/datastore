@@ -23,4 +23,10 @@ public interface DataStore {
 	 * @param tags the Tags the items should have to be removed.
 	 */
 	void remove(Set<String> tags);
+	
+	/**
+	 * Updates the specified data if it exists in the store.
+	 * @param data
+	 */
+	void update(Data data);
 }

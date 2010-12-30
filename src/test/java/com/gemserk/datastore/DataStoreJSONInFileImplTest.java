@@ -49,7 +49,7 @@ public class DataStoreJSONInFileImplTest {
 	}
 	
 	@Test
-	public void shouldRemoveItemsWithGivenTags() throws URISyntaxException, IOException {
+	public void shouldRemoveItemsWithGivenTags() {
 		
 		final File storageFile = new File("");
 
@@ -84,5 +84,5 @@ public class DataStoreJSONInFileImplTest {
 		
 		dataStore.remove(Sets.newHashSet("A"));
 	}
-
+	
 }

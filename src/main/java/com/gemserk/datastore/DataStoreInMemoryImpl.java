@@ -38,4 +38,17 @@ public class DataStoreInMemoryImpl implements DataStore {
 		
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public void update(final Data data) {
+		ArrayList<Data> filteredCollection = new ArrayList(Collections2.filter(dataCollection, new Predicate<Data>() {
+			@Override
+			public boolean apply(Data internalData) {
+				return internalData.getId().equals(data.getId());
+			}
+		}));
+		dataCollection.removeAll(filteredCollection);
+		dataCollection.add(data);
+	}
+
 }

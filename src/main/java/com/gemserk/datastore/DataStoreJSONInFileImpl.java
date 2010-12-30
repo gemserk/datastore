@@ -147,4 +147,25 @@ public class DataStoreJSONInFileImpl implements DataStore {
 
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public void update(final Data data) {
+		
+		String readData = getFileContent();
+		Collection<Data> dataCollection = dataSerializer.parseData(readData);
+		
+		ArrayList<Data> filteredCollection = new ArrayList(Collections2.filter(dataCollection, new Predicate<Data>() {
+			@Override
+			public boolean apply(Data internalData) {
+				return internalData.getId().equals(data.getId());
+			}
+		}));
+		
+		dataCollection.removeAll(filteredCollection);
+		dataCollection.add(data);
+		
+		String dataToStore = dataSerializer.serializeData(dataCollection);
+		writeFileContent(dataToStore);
+	}
+
 }
