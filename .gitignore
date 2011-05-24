@@ -17,3 +17,8 @@ datastore-android/.classpath
 datastore-android/.settings
 datastore-android/.project
 datastore-android/target/
+
+datastore-desktop/.classpath
+datastore-desktop/.settings
+datastore-desktop/.project
+datastore-desktop/target/
