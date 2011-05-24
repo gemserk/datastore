@@ -49,7 +49,6 @@ public class DataStoreJSONInFileImplTestWithMain {
 		DataContainer dc = new DataContainer();
 		dc.setDatas(datas);
 
-		// JSONObject jobject = JSONObject.fromObject(dc);
 		JSONArray jobject = JSONArray.fromObject(datas);
 		String jsonOrig = jobject.toString(1);
 

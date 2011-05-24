@@ -22,12 +22,8 @@ import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class ScoresHttpImpl implements Scores {
-
-	protected static final Logger logger = LoggerFactory.getLogger(ScoresHttpImpl.class);
 
 	String gameKey;
 
@@ -35,7 +31,7 @@ public class ScoresHttpImpl implements Scores {
 
 	String scoresUrl;
 
-	private URI scoresUri;
+	private URI baseUri;
 
 	private ScoreSerializer scoreSerializer;
 
@@ -47,7 +43,7 @@ public class ScoresHttpImpl implements Scores {
 		this.scoresUrl = baseUrl + "/scores";
 
 		try {
-			scoresUri = new URI(scoresUrl);
+			baseUri = new URI(baseUrl);
 		} catch (URISyntaxException e) {
 			throw new RuntimeException(e);
 		}
@@ -71,24 +67,24 @@ public class ScoresHttpImpl implements Scores {
 
 			String encodedParams = URLEncodedUtils.format(params, "UTF-8");
 
-			URI uri = URIUtils.resolve(scoresUri, "?" + encodedParams);
+			URI uri = URIUtils.resolve(baseUri, "/scores?" + encodedParams);
 
 			HttpGet httpget = new HttpGet(uri);
 
-			logger.debug("Scores query uri: " + httpget.getURI());
+//			logger.debug("Scores query uri: " + httpget.getURI());
 
 			HttpResponse response = httpClient.execute(httpget);
 
 			StatusLine statusLine = response.getStatusLine();
 
 			if (statusLine.getStatusCode() != HttpStatus.SC_OK) {
-				logger.error("failed to retrieve scores : " + statusLine.toString());
+//				logger.error("failed to retrieve scores : " + statusLine.toString());
 				throw new RuntimeException("failed to retrieve scores : " + statusLine.toString());
 			}
 
 			String scoresJson = EntityUtils.toString(response.getEntity());
 
-			logger.debug("Scores json retrieved from server: " + scoresJson);
+//			logger.debug("Scores json retrieved from server: " + scoresJson);
 
 			Collection<Score> scores = parseData(scoresJson);
 
@@ -131,20 +127,20 @@ public class ScoresHttpImpl implements Scores {
 			HttpPost httppost = new HttpPost(submitUrl);
 			httppost.setEntity(entity);
 
-			logger.info("submitting new score to the server: " + score);
+//			logger.info("submitting new score to the server: " + score);
 
 			HttpResponse response = httpClient.execute(httppost);
 
 			StatusLine statusLine = response.getStatusLine();
 
 			if (statusLine.getStatusCode() != HttpStatus.SC_OK) {
-				logger.error("failed to submit score: " + statusLine.toString());
+//				logger.error("failed to submit score: " + statusLine.toString());
 				throw new RuntimeException("failed to submit score: " + statusLine.toString());
 			}
 
 			HttpEntity responseEntity = response.getEntity();
 			String responseEntityContent = EntityUtils.toString(responseEntity);
-			logger.info("new score submitted: score.id - " + responseEntityContent);
+//			logger.info("new score submitted: score.id - " + responseEntityContent);
 			return responseEntityContent;
 
 		} catch (Exception e) {

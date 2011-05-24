@@ -1,20 +1,22 @@
 package com.gemserk.datastore;
 
+import java.lang.reflect.Type;
 import java.util.Collection;
 
-import net.sf.json.JSONArray;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 public class DataSerializerJSONImpl implements DataSerializer {
+	
+	private final Gson gson = new Gson();
 
-	@SuppressWarnings("unchecked")
-	public Collection<Data> parseData(String data) {
-		return JSONArray.toCollection(JSONArray.fromObject(data), Data.class);
+	public Collection<Data> parse(String data) {
+		Type collectionType = new TypeToken<Collection<Data>>(){}.getType();
+		return gson.fromJson(data, collectionType);
 	}
 
-	public String serializeData(Collection<Data> dataCollection) {
-		JSONArray jobject = JSONArray.fromObject(dataCollection);
-		String jsonData = jobject.toString(1);
-		return jsonData;
+	public String serialize(Collection<Data> dataCollection) {
+		return gson.toJson(dataCollection);
 	}
-
+	
 }

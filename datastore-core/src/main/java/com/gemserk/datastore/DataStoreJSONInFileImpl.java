@@ -37,7 +37,7 @@ public class DataStoreJSONInFileImpl implements DataStore {
 			ensureFileExists();
 			String readData = getFileContent();
 
-			Collection<Data> dataCollection = dataSerializer.parseData(readData);
+			Collection<Data> dataCollection = dataSerializer.parse(readData);
 			return Collections2.filter(dataCollection, new Predicate<Data>() {
 				@Override
 				public boolean apply(Data data) {
@@ -56,7 +56,7 @@ public class DataStoreJSONInFileImpl implements DataStore {
 		Collection<Data> previousData = get(new HashSet<String>());
 		previousData.add(data);
 
-		String dataToStore = dataSerializer.serializeData(previousData);
+		String dataToStore = dataSerializer.serialize(previousData);
 		writeFileContent(dataToStore);
 
 		return data.getId();
@@ -100,7 +100,7 @@ public class DataStoreJSONInFileImpl implements DataStore {
 	public void remove(final Set<String> tags) {
 
 		String readData = getFileContent();
-		Collection<Data> dataCollection = dataSerializer.parseData(readData);
+		Collection<Data> dataCollection = dataSerializer.parse(readData);
 
 		ArrayList<Data> previousCollection = new ArrayList<Data>(dataCollection);
 
@@ -113,7 +113,7 @@ public class DataStoreJSONInFileImpl implements DataStore {
 
 		previousCollection.removeAll(filteredCollection);
 
-		String dataToStore = dataSerializer.serializeData(previousCollection);
+		String dataToStore = dataSerializer.serialize(previousCollection);
 		writeFileContent(dataToStore);
 
 	}
@@ -123,7 +123,7 @@ public class DataStoreJSONInFileImpl implements DataStore {
 	public void update(final Data data) {
 		
 		String readData = getFileContent();
-		Collection<Data> dataCollection = dataSerializer.parseData(readData);
+		Collection<Data> dataCollection = dataSerializer.parse(readData);
 		
 		ArrayList<Data> filteredCollection = new ArrayList(Collections2.filter(dataCollection, new Predicate<Data>() {
 			@Override
@@ -135,7 +135,7 @@ public class DataStoreJSONInFileImpl implements DataStore {
 		dataCollection.removeAll(filteredCollection);
 		dataCollection.add(data);
 		
-		String dataToStore = dataSerializer.serializeData(dataCollection);
+		String dataToStore = dataSerializer.serialize(dataCollection);
 		writeFileContent(dataToStore);
 	}
 

@@ -69,9 +69,9 @@ public class DataStoreJSONInFileImplTest {
 				oneOf(dataFile).getFileContent(storageFile);
 				will(returnValue(fileContent));
 				
-				oneOf(dataSerializer).parseData(fileContent);
+				oneOf(dataSerializer).parse(fileContent);
 				will(returnValue(dataList));
-				oneOf(dataSerializer).serializeData(with(equal(expectedDataList)));
+				oneOf(dataSerializer).serialize(with(equal(expectedDataList)));
 				// oneOf(dataSerializer).serializeData((Collection<Data>) with(Matchers.hasItem(elementWithTagB)));
 				will(returnValue(serializedData));
 

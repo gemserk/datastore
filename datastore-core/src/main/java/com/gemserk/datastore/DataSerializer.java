@@ -4,8 +4,8 @@ import java.util.Collection;
 
 public interface DataSerializer {
 
-	Collection<Data> parseData(String data);
+	Collection<Data> parse(String data);
 
-	String serializeData(Collection<Data> dataCollection);
+	String serialize(Collection<Data> dataCollection);
 
 }
