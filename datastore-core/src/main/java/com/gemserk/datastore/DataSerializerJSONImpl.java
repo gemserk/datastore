@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import net.sf.json.JSONArray;
 
-public class DataSerializerJSonImpl implements DataSerializer {
+public class DataSerializerJSONImpl implements DataSerializer {
 
 	@SuppressWarnings("unchecked")
 	public Collection<Data> parseData(String data) {

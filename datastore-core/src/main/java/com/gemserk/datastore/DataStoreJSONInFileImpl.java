@@ -22,7 +22,7 @@ public class DataStoreJSONInFileImpl implements DataStore {
 	DataFile dataFile;
 
 	public DataStoreJSONInFileImpl(File storage) {
-		this(storage, new DataSerializerJSonImpl());
+		this(storage, new DataSerializerJSONImpl());
 	}
 
 	public DataStoreJSONInFileImpl(File storage, DataSerializer dataSerializer) {
