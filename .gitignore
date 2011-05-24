@@ -2,3 +2,14 @@
 .settings
 .project
 target/
+
+datastore-core/.classpath
+datastore-core/.settings
+datastore-core/.project
+datastore-core/target/
+
+datastore-tests/.classpath
+datastore-tests/.settings
+datastore-tests/.project
+datastore-tests/target/
+
