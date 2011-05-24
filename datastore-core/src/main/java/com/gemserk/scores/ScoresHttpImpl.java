@@ -8,9 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -40,12 +37,15 @@ public class ScoresHttpImpl implements Scores {
 
 	private URI scoresUri;
 
-	public ScoresHttpImpl(String gameKey, String baseUrl) {
+	private ScoreSerializer scoreSerializer;
+
+	public ScoresHttpImpl(String gameKey, String baseUrl, ScoreSerializer scoreSerializer) {
 		this.gameKey = gameKey;
-		
+		this.scoreSerializer = scoreSerializer;
+
 		this.submitUrl = baseUrl + "/submit";
 		this.scoresUrl = baseUrl + "/scores";
-		
+
 		try {
 			scoresUri = new URI(scoresUrl);
 		} catch (URISyntaxException e) {
@@ -70,13 +70,13 @@ public class ScoresHttpImpl implements Scores {
 			params.add(new BasicNameValuePair("ascending", Boolean.toString(ascending)));
 
 			String encodedParams = URLEncodedUtils.format(params, "UTF-8");
-			
+
 			URI uri = URIUtils.resolve(scoresUri, "?" + encodedParams);
 
 			HttpGet httpget = new HttpGet(uri);
 
 			logger.debug("Scores query uri: " + httpget.getURI());
-			
+
 			HttpResponse response = httpClient.execute(httpget);
 
 			StatusLine statusLine = response.getStatusLine();
@@ -100,13 +100,12 @@ public class ScoresHttpImpl implements Scores {
 
 	}
 
-	@SuppressWarnings("unchecked")
-	Collection<Score> parseData(String scoresJsonString) {
-		return JSONArray.toCollection(JSONArray.fromObject(scoresJsonString), Score.class);
+	Collection<Score> parseData(String scores) {
+		return scoreSerializer.parse(scores);
 	}
 
 	String mapToJson(Map<String, Object> data) {
-		return JSONObject.fromObject(data).toString();
+		return scoreSerializer.serializeScoreData(data);
 	}
 
 	@Override
@@ -131,7 +130,7 @@ public class ScoresHttpImpl implements Scores {
 
 			HttpPost httppost = new HttpPost(submitUrl);
 			httppost.setEntity(entity);
-			
+
 			logger.info("submitting new score to the server: " + score);
 
 			HttpResponse response = httpClient.execute(httppost);

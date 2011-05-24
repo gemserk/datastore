@@ -1,8 +1,10 @@
 package com.gemserk.scores;
 
 import java.util.Collection;
+import java.util.Map;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 public class ScoreSerializerJSONImpl implements ScoreSerializer {
 
@@ -16,6 +18,11 @@ public class ScoreSerializerJSONImpl implements ScoreSerializer {
 		JSONArray jobject = JSONArray.fromObject(scores);
 		String jsonData = jobject.toString(1);
 		return jsonData;
+	}
+
+	@Override
+	public String serializeScoreData(Map<String, Object> data) {
+		return JSONObject.fromObject(data).toString();
 	}
 
 }

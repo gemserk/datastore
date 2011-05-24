@@ -42,11 +42,8 @@ public class ScoresFileImpl implements Scores {
 	@Override
 	public Collection<Score> getOrderedByPoints(final Set<String> tags, int quantity, boolean ascending) {
 		Collection<Score> filteredScores = get(tags);
-
 		ArrayList<Score> scores = new ArrayList<Score>(filteredScores);
-
 		Collections.sort(scores, ascending ? new AscendingScoreComparator() : new DescendingScoreComparator());
-
 		return scores.subList(0, Math.min(quantity, scores.size()));
 	}
 
@@ -70,16 +67,13 @@ public class ScoresFileImpl implements Scores {
 	private Collection<Score> get(final Set<String> tags) {
 		try {
 			ensureFileExists();
-
 			String readData = getFileContent();
-
 			Collection<Score> filteredScores = Collections2.filter(scoreSerializer.parse(readData), new Predicate<Score>() {
 				@Override
 				public boolean apply(Score data) {
 					return data.getTags().containsAll(tags);
 				}
 			});
-
 			return filteredScores;
 		} catch (IOException e) {
 			throw new RuntimeException("couldnt read storage: " + storage, e);

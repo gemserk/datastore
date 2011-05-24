@@ -10,11 +10,11 @@ import com.google.common.collect.Sets;
 public class ScoresImplementationsTests {
 
 	public static void main(String[] args) {
-		test4();
+		test5();
 	}
 
 	public static void test1() {
-		Scores scoresHttpImpl = new ScoresHttpImpl("dsadfasfdsfaasd", "http://localhost:8080");
+		Scores scoresHttpImpl = new ScoresHttpImpl("dsadfasfdsfaasd", "http://localhost:8080", new ScoreSerializerJSONImpl());
 
 		HashSet<String> tags = Sets.newHashSet("level1", "easy", "superuser");
 
@@ -29,7 +29,7 @@ public class ScoresImplementationsTests {
 	}
 
 	public static void test2() {
-		ScoresHttpImpl scoresHttpImpl = new ScoresHttpImpl("dsadfasfdsfaasd", "http://localhost:8080");
+		ScoresHttpImpl scoresHttpImpl = new ScoresHttpImpl("dsadfasfdsfaasd", "http://localhost:8080", new ScoreSerializerJSONImpl());
 
 		HashSet<String> tags = Sets.newHashSet("level1", "easy");
 
@@ -53,14 +53,24 @@ public class ScoresImplementationsTests {
 	}
 
 	public static void test4() {
-		
-		Scores scores = new ScoresHttpImpl("9eba9d1d13f8190d934e3dd0f58f58ca", "http://gemserkscores.appspot.com/");
+		Scores scores = new ScoresHttpImpl("9eba9d1d13f8190d934e3dd0f58f58ca", "http://gemserkscores.appspot.com/", new ScoreSerializerJSONImpl());
 
 		HashSet<String> tags = Sets.newHashSet("level01");
 		HashMap<String, Object> data = new HashMap<String, Object>();
 		
 		scores.submit(new Score("ruben01", 50, tags, data));
+	}
+	
+	public static void test5() {
+		Scores scores = new ScoresHttpImpl("90eb28f982882fb5def25d61c9420be9", "http://gemserkscores.appspot.com/", new ScoreSerializerJSONImpl());
+		
+		HashSet<String> tags = Sets.newHashSet("easy");
 
+		Collection<Score> scoresList = scores.getOrderedByPoints(tags, 10, true);
+
+		for (Score score : scoresList) {
+			System.out.println(score.toString());
+		}
 	}
 	
 }
