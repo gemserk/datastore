@@ -3,7 +3,7 @@
 	<groupId>com.gemserk.datastore</groupId>
 	<artifactId>datastore</artifactId>
 	<packaging>jar</packaging>
-	<version>0.0.2</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<name>datastore</name>
 	<url>http://www.gemserk.com</url>
 	<organization>
