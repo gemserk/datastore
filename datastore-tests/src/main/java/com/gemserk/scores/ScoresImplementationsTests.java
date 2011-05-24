@@ -41,7 +41,7 @@ public class ScoresImplementationsTests {
 	}
 
 	public static void test3() {
-		ScoresFileImpl scoresFileImpl = new ScoresFileImpl(new File(System.getProperty("user.home") + "/.gemserk/jylonwars/scores.data"));
+		ScoresFileImpl scoresFileImpl = new ScoresFileImpl(new File(System.getProperty("user.home") + "/.gemserk/jylonwars/scores.data"), new ScoreSerializerJSONImpl());
 
 		HashSet<String> tags = Sets.newHashSet("easy");
 

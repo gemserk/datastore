@@ -9,8 +9,6 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 
-import net.sf.json.JSONArray;
-
 import org.apache.commons.io.FileUtils;
 
 import com.google.common.base.Predicate;
@@ -33,17 +31,20 @@ public class ScoresFileImpl implements Scores {
 	}
 
 	File storage;
+	
+	ScoreSerializer scoreSerializer;
 
-	public ScoresFileImpl(File storage) {
+	public ScoresFileImpl(File storage, ScoreSerializer scoreSerializer) {
 		this.storage = storage;
+		this.scoreSerializer = scoreSerializer ;
 	}
 
 	@Override
 	public Collection<Score> getOrderedByPoints(final Set<String> tags, int quantity, boolean ascending) {
 		Collection<Score> filteredScores = get(tags);
-		
+
 		ArrayList<Score> scores = new ArrayList<Score>(filteredScores);
-		
+
 		Collections.sort(scores, ascending ? new AscendingScoreComparator() : new DescendingScoreComparator());
 
 		return scores.subList(0, Math.min(quantity, scores.size()));
@@ -57,7 +58,7 @@ public class ScoresFileImpl implements Scores {
 			Collection<Score> previousData = get(new HashSet<String>());
 			previousData.add(score);
 
-			String dataToStore = serializeData(previousData);
+			String dataToStore = scoreSerializer.serialize(previousData);
 			writeFileContent(dataToStore);
 
 			return score.getId();
@@ -72,7 +73,7 @@ public class ScoresFileImpl implements Scores {
 
 			String readData = getFileContent();
 
-			Collection<Score> filteredScores = Collections2.filter(parseData(readData), new Predicate<Score>() {
+			Collection<Score> filteredScores = Collections2.filter(scoreSerializer.parse(readData), new Predicate<Score>() {
 				@Override
 				public boolean apply(Score data) {
 					return data.getTags().containsAll(tags);
@@ -96,17 +97,6 @@ public class ScoresFileImpl implements Scores {
 	void ensureFileExists() throws IOException {
 		if (!storage.exists())
 			writeFileContent("[]");
-	}
-
-	@SuppressWarnings("unchecked")
-	Collection<Score> parseData(String scoresJsonString) {
-		return JSONArray.toCollection(JSONArray.fromObject(scoresJsonString), Score.class);
-	}
-
-	String serializeData(Collection<Score> dataCollection) {
-		JSONArray jobject = JSONArray.fromObject(dataCollection);
-		String jsonData = jobject.toString(1);
-		return jsonData;
 	}
 
 }
