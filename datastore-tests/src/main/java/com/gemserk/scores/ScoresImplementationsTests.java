@@ -10,7 +10,7 @@ import com.google.common.collect.Sets;
 public class ScoresImplementationsTests {
 
 	public static void main(String[] args) {
-		test5();
+		test4();
 	}
 
 	public static void test1() {
@@ -58,7 +58,7 @@ public class ScoresImplementationsTests {
 		HashSet<String> tags = Sets.newHashSet("level01");
 		HashMap<String, Object> data = new HashMap<String, Object>();
 		
-		scores.submit(new Score("ruben01", 50, tags, data));
+		scores.submit(new Score("TEST-NEWURISUBMIT", 50, tags, data));
 	}
 	
 	public static void test5() {

@@ -29,11 +29,11 @@ public class ScoresHttpImpl implements Scores {
 
 	protected static final Logger logger = LoggerFactory.getLogger(ScoresHttpImpl.class);
 
+	private static String submitScoreUrl = "/submit";
+
+	private static String queryScoresUrl = "/scores";
+
 	String gameKey;
-
-	String submitUrl;
-
-	String scoresUrl;
 
 	private URI baseUri;
 
@@ -42,9 +42,6 @@ public class ScoresHttpImpl implements Scores {
 	public ScoresHttpImpl(String gameKey, String baseUrl, ScoreSerializer scoreSerializer) {
 		this.gameKey = gameKey;
 		this.scoreSerializer = scoreSerializer;
-
-		this.submitUrl = baseUrl + "/submit";
-		this.scoresUrl = baseUrl + "/scores";
 
 		try {
 			baseUri = new URI(baseUrl);
@@ -71,7 +68,7 @@ public class ScoresHttpImpl implements Scores {
 
 			String encodedParams = URLEncodedUtils.format(params, "UTF-8");
 
-			URI uri = URIUtils.resolve(baseUri, "/scores?" + encodedParams);
+			URI uri = URIUtils.resolve(baseUri, queryScoresUrl + "?" + encodedParams);
 
 			HttpGet httpget = new HttpGet(uri);
 
@@ -130,7 +127,7 @@ public class ScoresHttpImpl implements Scores {
 
 			UrlEncodedFormEntity entity = new UrlEncodedFormEntity(params, "UTF-8");
 
-			HttpPost httppost = new HttpPost(submitUrl);
+			HttpPost httppost = new HttpPost(URIUtils.resolve(baseUri, submitScoreUrl));
 			httppost.setEntity(entity);
 
 			if (logger.isInfoEnabled())
