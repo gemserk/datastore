@@ -1,14 +1,31 @@
 package com.gemserk.scores;
 
+import static org.junit.Assert.assertThat;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
+import org.hamcrest.core.IsEqual;
 import org.junit.Test;
 
 import com.google.common.collect.Sets;
 
 public class ScoreSerializerJSONImplTest {
+	
+	@Test
+	public void shouldReturnEmptyCollectionForEmptyString() {
+		ScoreSerializerJSONImpl scoreSerializer = new ScoreSerializerJSONImpl();
+		Collection<Score> scores = scoreSerializer.parse("");
+		assertThat(scores.size(), IsEqual.equalTo(0));
+	}
+	
+	@Test
+	public void shouldReturnEmptyCollectionForNullString() {
+		ScoreSerializerJSONImpl scoreSerializer = new ScoreSerializerJSONImpl();
+		Collection<Score> scores = scoreSerializer.parse(null);
+		assertThat(scores.size(), IsEqual.equalTo(0));
+	}
 
 	@Test
 	public void test() {

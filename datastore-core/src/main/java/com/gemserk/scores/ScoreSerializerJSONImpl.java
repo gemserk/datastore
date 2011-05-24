@@ -1,6 +1,7 @@
 package com.gemserk.scores;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
@@ -13,6 +14,8 @@ public class ScoreSerializerJSONImpl implements ScoreSerializer {
 
 	@Override
 	public Collection<Score> parse(String scoresString) {
+		if ("".equals(scoresString) || scoresString == null)
+			return new ArrayList<Score>();
 		Type collectionType = new TypeToken<Collection<Score>>(){}.getType();
 		return gson.fromJson(scoresString, collectionType);
 	}
