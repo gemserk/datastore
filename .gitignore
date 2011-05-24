@@ -13,3 +13,7 @@ datastore-tests/.settings
 datastore-tests/.project
 datastore-tests/target/
 
+datastore-android/.classpath
+datastore-android/.settings
+datastore-android/.project
+datastore-android/target/

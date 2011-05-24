@@ -52,6 +52,7 @@
 
 	<modules>
 		<module>datastore-core</module>
+		<module>datastore-android</module>
 		<module>datastore-tests</module>
 	</modules>
 
