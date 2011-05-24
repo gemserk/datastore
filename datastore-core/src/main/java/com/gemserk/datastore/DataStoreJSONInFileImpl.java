@@ -7,7 +7,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import net.sf.json.JSONArray;
 
 import org.apache.commons.io.FileUtils;
 
@@ -99,29 +98,6 @@ public class DataStoreJSONInFileImpl implements DataStore {
 	void ensureFileExists() throws IOException {
 		if (!storage.exists())
 			writeFileContent("[]");
-	}
-
-	static interface DataSerializer {
-
-		Collection<Data> parseData(String data);
-
-		String serializeData(Collection<Data> dataCollection);
-
-	}
-
-	static class DataSerializerJSonImpl implements DataSerializer {
-
-		@SuppressWarnings("unchecked")
-		public Collection<Data> parseData(String data) {
-			return JSONArray.toCollection(JSONArray.fromObject(data), Data.class);
-		}
-
-		public String serializeData(Collection<Data> dataCollection) {
-			JSONArray jobject = JSONArray.fromObject(dataCollection);
-			String jsonData = jobject.toString(1);
-			return jsonData;
-		}
-
 	}
 
 	@SuppressWarnings("unchecked")

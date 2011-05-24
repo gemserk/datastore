@@ -20,7 +20,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.gemserk.datastore.DataStoreJSONInFileImpl.DataFile;
-import com.gemserk.datastore.DataStoreJSONInFileImpl.DataSerializer;
 import com.google.common.collect.Sets;
 
 @RunWith(JMock.class)
