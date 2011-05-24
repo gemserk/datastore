@@ -30,7 +30,7 @@ public class StoreAsJSONInHomeDirTest {
 		
 		File file = new File(System.getProperty("user.home") + "/.gemserk/jylonwars/storage.data");
 		
-		DataStoreJSONInFileImpl datastore = new DataStoreJSONInFileImpl(file);
+		DataStoreJSONInFileImpl datastore = new DataStoreJSONInFileImpl(file, new DataSerializerJSONImpl());
 		
 		for (Data data : datas) {
 			datastore.submit(data);

@@ -42,7 +42,7 @@ public class DataStoreJSONInFileImplTest {
 	
 	@Test
 	public void shouldGetDataFromFile() throws URISyntaxException, IOException {
-		DataStoreJSONInFileImpl dataStore = new DataStoreJSONInFileImpl(dataStoreFile);
+		DataStoreJSONInFileImpl dataStore = new DataStoreJSONInFileImpl(dataStoreFile, new DataSerializerJSONImpl());
 		Collection<Data> data = dataStore.get(Sets.<String>newHashSet());
 		assertTrue(data.size() == 2);
 	}

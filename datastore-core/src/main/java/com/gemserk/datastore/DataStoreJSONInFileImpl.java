@@ -7,7 +7,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-
 import org.apache.commons.io.FileUtils;
 
 import com.google.common.base.Predicate;
@@ -20,10 +19,6 @@ public class DataStoreJSONInFileImpl implements DataStore {
 	DataSerializer dataSerializer;
 
 	DataFile dataFile;
-
-	public DataStoreJSONInFileImpl(File storage) {
-		this(storage, new DataSerializerJSONImpl());
-	}
 
 	public DataStoreJSONInFileImpl(File storage, DataSerializer dataSerializer) {
 		this(storage, dataSerializer, new DataFile());
