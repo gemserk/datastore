@@ -8,6 +8,8 @@ public class Score {
 
 	String id;
 
+	String profilePublicKey;
+
 	String name;
 
 	long points;
@@ -17,6 +19,14 @@ public class Score {
 	Set<String> tags;
 
 	Map<String, Object> data;
+
+	public String getProfilePublicKey() {
+		return profilePublicKey;
+	}
+
+	public void setProfilePublicKey(String profilePublicKey) {
+		this.profilePublicKey = profilePublicKey;
+	}
 
 	public String getId() {
 		return id;
@@ -53,11 +63,11 @@ public class Score {
 	public long getTimestamp() {
 		return timestamp;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public void setPoints(long points) {
 		this.points = points;
 	}
@@ -65,21 +75,22 @@ public class Score {
 	public void setTimestamp(long timestamp) {
 		this.timestamp = timestamp;
 	}
-	
+
 	public Score() {
 
 	}
 
-	public Score(String name, long points, Set<String> tags, Map<String, Object> data) {
+	public Score(String profilePublicKey, String name, long points, Set<String> tags, Map<String, Object> data) {
+		this.profilePublicKey = profilePublicKey;
 		this.name = name;
 		this.points = points;
 		this.tags = tags;
 		this.data = data;
 	}
-	
+
 	@Override
 	public String toString() {
-		return MessageFormat.format("SCORE [id:{0}, name:{1}, points:{2}, tags:{3}, data:{4}]", id, name, points, tags, data);
+		return MessageFormat.format("SCORE [id:{0}, profilePublicKey:{5}, name:{1}, points:{2}, tags:{3}, data:{4}]", id, name, points, tags, data, profilePublicKey);
 	}
-	
+
 }

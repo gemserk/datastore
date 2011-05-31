@@ -49,7 +49,7 @@ public class ScoreSerializerJSONImplTest {
 			put("DATA2", 500);
 		}};
 		
-		scores.add(new Score("arielsan", 15000l, Sets.newHashSet("b", "c"), data));
+		scores.add(new Score("KEY1", "arielsan", 15000l, Sets.newHashSet("b", "c"), data));
 		
 		String serializedScores = scoreSerializer.serialize(scores);
 		

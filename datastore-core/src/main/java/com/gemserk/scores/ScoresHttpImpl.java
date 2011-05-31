@@ -117,6 +117,7 @@ public class ScoresHttpImpl implements Scores {
 
 			params.add(new BasicNameValuePair("gameKey", gameKey));
 
+			params.add(new BasicNameValuePair("profilePublicKey", score.getProfilePublicKey()));
 			params.add(new BasicNameValuePair("name", score.getName()));
 			params.add(new BasicNameValuePair("points", Long.toString(score.getPoints())));
 
