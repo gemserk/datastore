@@ -10,7 +10,7 @@ import com.google.common.collect.Sets;
 public class ScoresImplementationsTests {
 
 	public static void main(String[] args) {
-		test4();
+		test5();
 	}
 
 	public static void test1() {
@@ -62,13 +62,25 @@ public class ScoresImplementationsTests {
 	}
 	
 	public static void test5() {
-		Scores scores = new ScoresHttpImpl("90eb28f982882fb5def25d61c9420be9", "http://gemserkscores.appspot.com/", new ScoreSerializerJSONImpl());
+		Scores scores = new ScoresHttpImpl("90eb28f982882fb5def25d61c9420be9", "http://2.gemserkscores.appspot.com", new ScoreSerializerJSONImpl());
 		
-		HashSet<String> tags = Sets.newHashSet("easy");
+		HashSet<String> tags = new HashSet<String>();
 
-		Collection<Score> scoresList = scores.getOrderedByPoints(tags, 10, true);
+		Collection<Score> scoresList = scores.getOrderedByPoints(tags, 20, false);
 
 		for (Score score : scoresList) {
+			System.out.println(score.toString());
+		}
+	}
+	
+	public static void test6() {
+		Scores scores = new ScoresHttpImpl("dsadfasfdsfaasd", "http://localhost:8080", new ScoreSerializerJSONImpl());
+
+		HashSet<String> tags = new HashSet<String>();
+
+		Collection<Score> scoreList = scores.getOrderedByPoints(tags, 10, false);
+
+		for (Score score : scoreList) {
 			System.out.println(score.toString());
 		}
 	}

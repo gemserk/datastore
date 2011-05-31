@@ -19,5 +19,9 @@ public interface Scores {
 	 * @return
 	 */
 	Collection<Score> getOrderedByPoints(Set<String> tags, int limit, boolean ascending);
+	
+	// Profile newProfile();
+	
+	// void updateProfile(Profile profile);
 
 }
