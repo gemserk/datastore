@@ -39,7 +39,7 @@ public class DataStoreJSONInFileImplTest {
 		dataStoreFile = File.createTempFile("datastore-temp", ".data");
 		FileUtils.copyFile(srcFile, dataStoreFile);
 	}
-	
+
 	@Test
 	public void shouldGetDataFromFile() throws URISyntaxException, IOException {
 		DataStoreJSONInFileImpl dataStore = new DataStoreJSONInFileImpl(dataStoreFile, new DataSerializerJSONImpl());

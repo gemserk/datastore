@@ -2,18 +2,20 @@ package com.gemserk.scores;
 
 public class Profile {
 
-	String id;
-	
+	String privateKey;
+
+	String publicKey;
+
 	String name;
-	
+
 	boolean guest;
 
-	public String getId() {
-		return id;
+	public String getPrivateKey() {
+		return privateKey;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setPrivateKey(String id) {
+		this.privateKey = id;
 	}
 
 	public String getName() {
@@ -30,6 +32,14 @@ public class Profile {
 
 	public void setGuest(boolean guest) {
 		this.guest = guest;
+	}
+
+	public String getPublicKey() {
+		return publicKey;
+	}
+
+	public void setPublicKey(String publicKey) {
+		this.publicKey = publicKey;
 	}
 	
 }

@@ -10,7 +10,7 @@ import com.google.common.collect.Sets;
 public class ScoresImplementationsTests {
 
 	public static void main(String[] args) {
-		test5();
+		test6();
 	}
 
 	public static void test1() {
