@@ -1,4 +1,4 @@
-package com.gemserk.scores;
+package com.gemserk.datastore.profiles;
 
 public class Profile {
 

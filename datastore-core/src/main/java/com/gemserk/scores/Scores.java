@@ -7,6 +7,7 @@ public interface Scores {
 
 	/**
 	 * Submits a new score, returns the id of the score.
+	 * 
 	 * @param score
 	 * @return the id of the entry
 	 */
@@ -14,14 +15,12 @@ public interface Scores {
 
 	/**
 	 * Returns scores tagged with the given tags ordered by points descending.
+	 * 
 	 * @param tags
-	 * @param limit the number of results
+	 * @param limit
+	 *            the number of results
 	 * @return
 	 */
 	Collection<Score> getOrderedByPoints(Set<String> tags, int limit, boolean ascending);
-	
-	// Profile newProfile();
-	
-	// void updateProfile(Profile profile);
 
 }

@@ -25,6 +25,8 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.gemserk.datastore.profiles.Profile;
+
 public class ScoresHttpImpl implements Scores {
 
 	protected static final Logger logger = LoggerFactory.getLogger(ScoresHttpImpl.class);
@@ -32,7 +34,7 @@ public class ScoresHttpImpl implements Scores {
 	private static String submitScoreUrl = "/submit";
 
 	private static String queryScoresUrl = "/scores";
-
+	
 	String gameKey;
 
 	private URI baseUri;
@@ -106,6 +108,11 @@ public class ScoresHttpImpl implements Scores {
 	String mapToJson(Map<String, Object> data) {
 		return scoreSerializer.serializeScoreData(data);
 	}
+	
+
+	Profile parseProfile(String profileJson) {
+		return null;
+	}
 
 	@Override
 	public String submit(Score score) {
@@ -154,5 +161,8 @@ public class ScoresHttpImpl implements Scores {
 		}
 
 	}
+
+
+
 
 }

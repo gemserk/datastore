@@ -10,6 +10,7 @@ import java.util.HashMap;
 import org.hamcrest.core.IsEqual;
 import org.junit.Test;
 
+import com.gemserk.datastore.profiles.Profile;
 import com.google.common.collect.Sets;
 import com.google.gson.Gson;
 
