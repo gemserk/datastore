@@ -42,4 +42,12 @@ public class Profile {
 		this.publicKey = publicKey;
 	}
 	
+	public Profile() {
+	}
+
+	public Profile(String name, boolean guest) {
+		this.name = name;
+		this.guest = guest;
+	}
+
 }

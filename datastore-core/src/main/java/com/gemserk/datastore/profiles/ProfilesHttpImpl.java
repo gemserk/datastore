@@ -71,7 +71,7 @@ public class ProfilesHttpImpl implements Profiles {
 			if (logger.isInfoEnabled())
 				logger.info("new profile registered: " + profileJson);
 
-			return profileJsonSerializer.parseProfile(profileJson);
+			return profileJsonSerializer.parse(profileJson);
 
 		} catch (Exception e) {
 			throw new RuntimeException("failed to register profile", e);

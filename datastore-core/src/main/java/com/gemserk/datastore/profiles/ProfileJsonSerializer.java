@@ -6,8 +6,12 @@ public class ProfileJsonSerializer {
 
 	Gson gson = new Gson();
 
-	public Profile parseProfile(String profileJson) {
+	public Profile parse(String profileJson) {
 		return gson.fromJson(profileJson, Profile.class);
+	}
+
+	public String serialize(Profile profile) {
+		return gson.toJson(profile);
 	}
 
 }
