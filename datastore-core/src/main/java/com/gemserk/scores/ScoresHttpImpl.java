@@ -40,6 +40,10 @@ public class ScoresHttpImpl implements Scores {
 	private URI baseUri;
 
 	private ScoreSerializer scoreSerializer;
+	
+	public ScoresHttpImpl(String gameKey, String baseUrl)  {
+		this(gameKey, baseUrl, new ScoreSerializerJSONImpl());
+	}
 
 	public ScoresHttpImpl(String gameKey, String baseUrl, ScoreSerializer scoreSerializer) {
 		this.gameKey = gameKey;
