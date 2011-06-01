@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.gemserk.datastore</groupId>
 	<artifactId>datastore</artifactId>
-	<version>0.0.3</version>
+	<version>0.0.3-fix1</version>
 	<packaging>pom</packaging>
 	<name>Datastore</name>
 	<description>A Java library to basic data storage abstraction</description>
