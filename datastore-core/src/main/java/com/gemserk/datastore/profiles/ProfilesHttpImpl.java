@@ -21,7 +21,6 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.gson.Gson;
 
 public class ProfilesHttpImpl implements Profiles {
 
@@ -30,13 +29,12 @@ public class ProfilesHttpImpl implements Profiles {
 	private static String registerProfileUrl = "/newProfile";
 
 	private URI baseUri;
-	
-	private Gson gson;
+
+	ProfileJsonSerializer profileJsonSerializer = new ProfileJsonSerializer();
 
 	public ProfilesHttpImpl(String baseUrl) {
 		try {
 			baseUri = new URI(baseUrl);
-			gson = new Gson();
 		} catch (URISyntaxException e) {
 			throw new RuntimeException(e);
 		}
@@ -73,17 +71,12 @@ public class ProfilesHttpImpl implements Profiles {
 			if (logger.isInfoEnabled())
 				logger.info("new profile registered: " + profileJson);
 
-			return parseProfile(profileJson);
+			return profileJsonSerializer.parseProfile(profileJson);
 
 		} catch (Exception e) {
 			throw new RuntimeException("failed to register profile", e);
 		}
 
-	}
-
-	private Profile parseProfile(String profileJson) {
-		Profile profile = gson.fromJson(profileJson, Profile.class);
-		return profile;
 	}
 
 }
