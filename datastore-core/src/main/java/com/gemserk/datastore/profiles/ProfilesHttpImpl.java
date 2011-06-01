@@ -26,7 +26,9 @@ public class ProfilesHttpImpl implements Profiles {
 
 	protected static final Logger logger = LoggerFactory.getLogger(ProfilesHttpImpl.class);
 
-	private static String registerProfileUrl = "/newProfile";
+	private static String newProfileUrl = "/newProfile";
+	
+	private static String updateProfileUrl = "/updateProfile";
 
 	private URI baseUri;
 
@@ -52,7 +54,7 @@ public class ProfilesHttpImpl implements Profiles {
 
 			UrlEncodedFormEntity entity = new UrlEncodedFormEntity(params, "UTF-8");
 
-			HttpPost httppost = new HttpPost(URIUtils.resolve(baseUri, registerProfileUrl));
+			HttpPost httppost = new HttpPost(URIUtils.resolve(baseUri, newProfileUrl));
 			httppost.setEntity(entity);
 
 			if (logger.isInfoEnabled())
@@ -77,6 +79,48 @@ public class ProfilesHttpImpl implements Profiles {
 			throw new RuntimeException("failed to register profile", e);
 		}
 
+	}
+
+	@Override
+	public Profile update(Profile profile) {
+		if (!profile.isGuest()) 
+			throw new RuntimeException("can't update a non guest profile");
+		
+		try {
+			HttpClient httpClient = new DefaultHttpClient();
+
+			List<NameValuePair> params = new ArrayList<NameValuePair>();
+
+			params.add(new BasicNameValuePair("privateKey", profile.getPrivateKey()));
+			params.add(new BasicNameValuePair("name", profile.getName()));
+
+			UrlEncodedFormEntity entity = new UrlEncodedFormEntity(params, "UTF-8");
+
+			HttpPost httppost = new HttpPost(URIUtils.resolve(baseUri, updateProfileUrl));
+			httppost.setEntity(entity);
+
+			if (logger.isInfoEnabled())
+				logger.info(MessageFormat.format("updating profile for privateKey = {0} and name = {1} ", profile.getPrivateKey(), profile.getName()));
+
+			HttpResponse response = httpClient.execute(httppost);
+
+			StatusLine statusLine = response.getStatusLine();
+
+			if (statusLine.getStatusCode() != HttpStatus.SC_OK) {
+				throw new RuntimeException("failed to update profile: " + statusLine.toString());
+			}
+
+			HttpEntity responseEntity = response.getEntity();
+			String profileJson = EntityUtils.toString(responseEntity);
+			if (logger.isInfoEnabled())
+				logger.info("updated profile: " + profileJson);
+
+			return profileJsonSerializer.parse(profileJson);
+
+		} catch (Exception e) {
+			throw new RuntimeException("failed to register profile", e);
+		}
+		
 	}
 
 }

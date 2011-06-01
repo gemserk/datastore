@@ -13,4 +13,11 @@ public interface Profiles {
 	 */
 	Profile register(String name, boolean guest);
 
+	/**
+	 * Updates the profile's name if profile was guest, it fails otherwise.
+	 * 
+	 * @param profile
+	 */
+	Profile update(Profile profile);
+
 }
