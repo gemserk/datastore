@@ -3,12 +3,12 @@
 	<parent>
 		<groupId>com.gemserk.datastore</groupId>
 		<artifactId>datastore</artifactId>
-		<version>0.0.4</version>
+		<version>0.0.5-SNAPSHOT</version>
 	</parent>
 	<groupId>com.gemserk.datastore</groupId>
 	<artifactId>datastore-core</artifactId>
 	<packaging>jar</packaging>
-	<version>0.0.4</version>
+	<version>0.0.5-SNAPSHOT</version>
 	<name>Datastore - Core Module</name>
 
 	<dependencies>
