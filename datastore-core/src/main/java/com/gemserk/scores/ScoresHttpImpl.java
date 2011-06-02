@@ -34,14 +34,14 @@ public class ScoresHttpImpl implements Scores {
 	private static String submitScoreUrl = "/submit";
 
 	private static String queryScoresUrl = "/scores";
-	
+
 	String gameKey;
 
 	private URI baseUri;
 
 	private ScoreSerializer scoreSerializer;
-	
-	public ScoresHttpImpl(String gameKey, String baseUrl)  {
+
+	public ScoresHttpImpl(String gameKey, String baseUrl) {
 		this(gameKey, baseUrl, new ScoreSerializerJSONImpl());
 	}
 
@@ -85,10 +85,8 @@ public class ScoresHttpImpl implements Scores {
 
 			StatusLine statusLine = response.getStatusLine();
 
-			if (statusLine.getStatusCode() != HttpStatus.SC_OK) {
-				// logger.error("failed to retrieve scores : " + statusLine.toString());
+			if (statusLine.getStatusCode() != HttpStatus.SC_OK)
 				throw new RuntimeException("failed to retrieve scores : " + statusLine.toString());
-			}
 
 			String scoresJson = EntityUtils.toString(response.getEntity());
 
@@ -112,7 +110,6 @@ public class ScoresHttpImpl implements Scores {
 	String mapToJson(Map<String, Object> data) {
 		return scoreSerializer.serializeScoreData(data);
 	}
-	
 
 	Profile parseProfile(String profileJson) {
 		return null;
@@ -120,7 +117,11 @@ public class ScoresHttpImpl implements Scores {
 
 	@Override
 	public String submit(Score score) {
+		return submit(null, score);
+	}
 
+	@Override
+	public String submit(String profilePrivateKey, Score score) {
 		try {
 			HttpClient httpClient = new DefaultHttpClient();
 
@@ -128,8 +129,11 @@ public class ScoresHttpImpl implements Scores {
 
 			params.add(new BasicNameValuePair("gameKey", gameKey));
 
-			params.add(new BasicNameValuePair("profilePublicKey", score.getProfilePublicKey()));
-			params.add(new BasicNameValuePair("name", score.getName()));
+			if (profilePrivateKey != null)
+				params.add(new BasicNameValuePair("profilePrivateKey", profilePrivateKey));
+			else
+				params.add(new BasicNameValuePair("name", score.getName()));
+
 			params.add(new BasicNameValuePair("points", Long.toString(score.getPoints())));
 
 			for (String tag : score.getTags())
@@ -149,10 +153,8 @@ public class ScoresHttpImpl implements Scores {
 
 			StatusLine statusLine = response.getStatusLine();
 
-			if (statusLine.getStatusCode() != HttpStatus.SC_OK) {
-				// logger.error("failed to submit score: " + statusLine.toString());
+			if (statusLine.getStatusCode() != HttpStatus.SC_OK)
 				throw new RuntimeException("failed to submit score: " + statusLine.toString());
-			}
 
 			HttpEntity responseEntity = response.getEntity();
 			String responseEntityContent = EntityUtils.toString(responseEntity);
@@ -165,8 +167,5 @@ public class ScoresHttpImpl implements Scores {
 		}
 
 	}
-
-
-
 
 }

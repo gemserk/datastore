@@ -93,4 +93,9 @@ public class ScoresFileImpl implements Scores {
 			writeFileContent("[]");
 	}
 
+	@Override
+	public String submit(String privateKey, Score score) {
+		throw new RuntimeException("unimplemented yet");
+	}
+
 }

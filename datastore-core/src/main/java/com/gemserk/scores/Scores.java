@@ -12,6 +12,14 @@ public interface Scores {
 	 * @return the id of the entry
 	 */
 	String submit(Score score);
+	
+	/**
+	 * Submits a new score, returns the id of the score.
+	 * 
+	 * @param score
+	 * @return the id of the entry
+	 */
+	String submit(String profilePrivateKey, Score score);
 
 	/**
 	 * Returns scores tagged with the given tags ordered by points descending.
