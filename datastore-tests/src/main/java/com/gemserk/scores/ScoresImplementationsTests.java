@@ -23,7 +23,7 @@ public class ScoresImplementationsTests {
 			put("enemiesKilled", 500);
 		}};
 
-		String scoreId = scoresHttpImpl.submit(new Score("PUBKEY1", "player", 12500, tags, data));
+		String scoreId = scoresHttpImpl.submit(new Score("player", 12500, tags, data));
 
 		System.out.println("Score submited with id: " + scoreId);
 	}
@@ -58,7 +58,7 @@ public class ScoresImplementationsTests {
 		HashSet<String> tags = Sets.newHashSet("level01");
 		HashMap<String, Object> data = new HashMap<String, Object>();
 		
-		scores.submit(new Score("PUBKEY1", "TEST-NEWURISUBMIT", 50, tags, data));
+		scores.submit(new Score("TEST-NEWURISUBMIT", 50, tags, data));
 	}
 	
 	public static void test5() {

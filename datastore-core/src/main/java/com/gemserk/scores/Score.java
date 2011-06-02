@@ -80,7 +80,7 @@ public class Score {
 
 	}
 
-	public Score(String profilePublicKey, String name, long points, Set<String> tags, Map<String, Object> data) {
+	public Score(String name, long points, Set<String> tags, Map<String, Object> data) {
 		this.profilePublicKey = profilePublicKey;
 		this.name = name;
 		this.points = points;

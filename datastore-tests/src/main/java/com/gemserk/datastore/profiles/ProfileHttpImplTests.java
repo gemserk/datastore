@@ -13,7 +13,8 @@ import com.gemserk.scores.ScoresHttpImpl;
 public class ProfileHttpImplTests {
 
 	public static void main(String[] args) {
-		test3();
+//		testSubmitScoreWithRegisteredProfileUsesNameFromServer();
+		testSubmitScoreWithRegisteredProfileAndChangeProfileNameUsesNameFromServer();
 	}
 
 	private static void test1() {
@@ -39,9 +40,9 @@ public class ProfileHttpImplTests {
 		
 		Profile profile = profiles.register("guest-123141", true);
 		
-		scores.submit(new Score(profile.getPublicKey(), profile.getName(), 2500, new HashSet<String>(), new HashMap<String, Object>()));
-		scores.submit(new Score(profile.getPublicKey(), profile.getName(), 1500, new HashSet<String>(), new HashMap<String, Object>()));
-		scores.submit(new Score(profile.getPublicKey(), profile.getName(), 5400, new HashSet<String>(), new HashMap<String, Object>()));
+		scores.submit(profile.getPrivateKey(), new Score(profile.getName(), 2500, new HashSet<String>(), new HashMap<String, Object>()));
+		scores.submit(profile.getPrivateKey(), new Score(profile.getName(), 1500, new HashSet<String>(), new HashMap<String, Object>()));
+		scores.submit(profile.getPrivateKey(), new Score(profile.getName(), 5400, new HashSet<String>(), new HashMap<String, Object>()));
 		
 		Collection<Score> scoreList = scores.getOrderedByPoints(new HashSet<String>(), 20, false);
 		for (Score score : scoreList) {
@@ -54,6 +55,40 @@ public class ProfileHttpImplTests {
 		System.out.println(MessageFormat.format("{0}, {1}, {2}, {3}", profile.getPrivateKey(), profile.getPublicKey(), profile.getName(), profile.isGuest()));
 		
 		scoreList = scores.getOrderedByPoints(new HashSet<String>(), 20, false);
+		for (Score score : scoreList) {
+			System.out.println(score);
+		}
+		
+	}
+	
+	private static void testSubmitScoreWithRegisteredProfileUsesNameFromServer() {
+		Profiles profiles = new ProfilesHttpImpl("http://localhost:8080/");
+		Scores scores = new ScoresHttpImpl("dsadfasfdsfaasd", "http://localhost:8080/");
+		
+		Profile profile = profiles.register("guest-123141", true);
+		
+		scores.submit(profile.getPrivateKey(), new Score("arielsan", 2500, new HashSet<String>(), new HashMap<String, Object>()));
+		
+		Collection<Score> scoreList = scores.getOrderedByPoints(new HashSet<String>(), 20, false);
+		
+		for (Score score : scoreList) {
+			System.out.println(score);
+		}
+		
+	}
+	
+	private static void testSubmitScoreWithRegisteredProfileAndChangeProfileNameUsesNameFromServer() {
+		Profiles profiles = new ProfilesHttpImpl("http://localhost:8080/");
+		Scores scores = new ScoresHttpImpl("dsadfasfdsfaasd", "http://localhost:8080/");
+		
+		Profile profile = profiles.register("guest-123141", true);
+		profile.setName("arielsan");
+		profile = profiles.update(profile);
+		
+		scores.submit(profile.getPrivateKey(), new Score("ninja", 2500, new HashSet<String>(), new HashMap<String, Object>()));
+		
+		Collection<Score> scoreList = scores.getOrderedByPoints(new HashSet<String>(), 20, false);
+		
 		for (Score score : scoreList) {
 			System.out.println(score);
 		}
