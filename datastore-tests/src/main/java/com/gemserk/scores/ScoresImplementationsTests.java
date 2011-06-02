@@ -5,12 +5,13 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import com.gemserk.scores.Scores.Range;
 import com.google.common.collect.Sets;
 
 public class ScoresImplementationsTests {
 
 	public static void main(String[] args) {
-		test6();
+		testGetScoresForToday();
 	}
 
 	public static void test1() {
@@ -79,6 +80,18 @@ public class ScoresImplementationsTests {
 		HashSet<String> tags = new HashSet<String>();
 
 		Collection<Score> scoreList = scores.getOrderedByPoints(tags, 10, false);
+
+		for (Score score : scoreList) {
+			System.out.println(score.toString());
+		}
+	}
+	
+	public static void testGetScoresForToday() {
+		Scores scores = new ScoresHttpImpl("dsadfasfdsfaasd", "http://localhost:8080", new ScoreSerializerJSONImpl());
+
+		HashSet<String> tags = new HashSet<String>();
+
+		Collection<Score> scoreList = scores.getOrderedByPoints(tags, 10, false, Range.Week);
 
 		for (Score score : scoreList) {
 			System.out.println(score.toString());

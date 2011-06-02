@@ -58,7 +58,11 @@ public class ScoresHttpImpl implements Scores {
 
 	@Override
 	public Collection<Score> getOrderedByPoints(Set<String> tags, int limit, boolean ascending) {
+		return getOrderedByPoints(tags, limit, ascending, Range.All);
+	}
 
+	@Override
+	public Collection<Score> getOrderedByPoints(Set<String> tags, int limit, boolean ascending, Range range) {
 		try {
 			HttpClient httpClient = new DefaultHttpClient();
 
@@ -71,6 +75,8 @@ public class ScoresHttpImpl implements Scores {
 
 			params.add(new BasicNameValuePair("limit", Integer.toString(limit)));
 			params.add(new BasicNameValuePair("ascending", Boolean.toString(ascending)));
+
+			params.add(new BasicNameValuePair("range", getRangeString(range)));
 
 			String encodedParams = URLEncodedUtils.format(params, "UTF-8");
 
@@ -100,7 +106,19 @@ public class ScoresHttpImpl implements Scores {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
 
+	private String getRangeString(Range range) {
+		switch (range) {
+		case Day:
+			return "day";
+		case Week:
+			return "week";
+		case Month:
+			return "month";
+		default:
+			return "all";
+		}
 	}
 
 	Collection<Score> parseData(String scores) {

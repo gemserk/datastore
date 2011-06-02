@@ -98,4 +98,9 @@ public class ScoresFileImpl implements Scores {
 		throw new RuntimeException("unimplemented yet");
 	}
 
+	@Override
+	public Collection<Score> getOrderedByPoints(Set<String> tags, int limit, boolean ascending, Range range) {
+		throw new RuntimeException("unimplemented yet");
+	}
+
 }
