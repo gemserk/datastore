@@ -38,8 +38,7 @@ public class ScoreSerializerJSONImpl implements ScoreSerializer {
 	public Collection<Score> parse(String scoresString) {
 		if ("".equals(scoresString) || scoresString == null)
 			return new ArrayList<Score>();
-		Type collectionType = new TypeToken<Collection<Score>>() {
-		}.getType();
+		Type collectionType = new TypeToken<Collection<Score>>() {}.getType();
 		return gson.fromJson(scoresString, collectionType);
 	}
 
