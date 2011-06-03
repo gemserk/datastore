@@ -3,12 +3,12 @@
 	<parent>
 		<groupId>com.gemserk.datastore</groupId>
 		<artifactId>datastore</artifactId>
-		<version>0.0.5</version>
+		<version>0.0.6-SNAPSHOT</version>
 	</parent>
 	<groupId>com.gemserk.datastore</groupId>
 	<artifactId>datastore-tests</artifactId>
 	<packaging>jar</packaging>
-	<version>0.0.5</version>
+	<version>0.0.6-SNAPSHOT</version>
 	<name>Datastore - Tests Module</name>
 
 	<dependencies>
