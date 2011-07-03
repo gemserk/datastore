@@ -15,7 +15,7 @@ Then just add maven dependency, if you are running it on desktop:
 	<dependency>
 		<groupId>com.gemserk.datastore</groupId>
 		<artifactId>datastore-desktop</artifactId>
-		<version>${datastore.version}</version> <!-- the current version of datastore -->
+		<version>${datastore.version}</version> <!-- the version you want of datastore -->
 	</dependency>
 
 Or add tne next dependency if you are running it on Android:
@@ -23,7 +23,7 @@ Or add tne next dependency if you are running it on Android:
 	<dependency>
 		<groupId>com.gemserk.datastore</groupId>
 		<artifactId>datastore-android</artifactId>
-		<version>${datastore.version}</version> <!-- the current version of datastore -->
+		<version>${datastore.version}</version> <!-- the version you want of datastore -->
 	</dependency>
 
 If you don't use maven on your projects, just run:
