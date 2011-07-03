@@ -30,7 +30,7 @@ If you don't use maven on your projects, just run:
 
 	mvn dependency:copy-dependencies
 
-to download all depednencies of the project and add all of them to yours to make datastore to work correctly.
+to download all dependencies of the project and add all of them to yours to make datastore to work correctly.
 
 Instantiate scores main classes:
 -------
