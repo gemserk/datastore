@@ -1,7 +1,36 @@
 Datastore
 =============
 
-Datastore is a Java library which makes life easier when working with [datastore-server][datastore-server]. Just add it to your Java classpath.
+Datastore is a Java library which makes life easier when working with [datastore-server][datastore-server].
+
+Adding it to classpath
+-------
+
+If you are using maven, just download [datastore][datastore] and then run:
+
+	mvn install
+
+Then just add maven dependency, if you are running it on desktop:
+
+	<dependency>
+		<groupId>com.gemserk.datastore</groupId>
+		<artifactId>datastore-desktop</artifactId>
+		<version>${datastore.version}</version> <!-- the current version of datastore -->
+	</dependency>
+
+Or add tne next dependency if you are running it on Android:
+
+	<dependency>
+		<groupId>com.gemserk.datastore</groupId>
+		<artifactId>datastore-android</artifactId>
+		<version>${datastore.version}</version> <!-- the current version of datastore -->
+	</dependency>
+
+If you don't use maven on your projects, just run:
+
+	mvn dependency:copy-dependencies
+
+to download all depednencies of the project and add all of them to yours to make datastore to work correctly.
 
 Instantiate scores main classes:
 -------
@@ -31,4 +60,5 @@ Finally
 That's all for now, explore the API by yourself and propose improvements by suggesting new stuff on [Issues][issues] page. 
 
 [issues]: https://github.com/gemserk/datastore/issues
+[datastore]: git://github.com/gemserk/datastore.git
 [datastore-server]: https://github.com/gemserk/datastore-server
