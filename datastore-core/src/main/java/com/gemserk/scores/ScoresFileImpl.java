@@ -99,13 +99,13 @@ public class ScoresFileImpl implements Scores {
 
 	@Override
 	public String submit(String privateKey, Score score) {
-		logger.info("submit score specifying profile private key is not implemented yet, calling the other submit score for now.");
+		logger.warn("submit score specifying profile private key is not implemented yet, calling the other submit score for now.");
 		return submit(score);
 	}
 
 	@Override
 	public Collection<Score> getOrderedByPoints(Set<String> tags, int limit, boolean ascending, Range range) {
-		logger.info("getOrderedByPoints specifying scores range is not implemented yet, calling the other implementation for now.");
+		logger.warn("getOrderedByPoints specifying scores range is not implemented yet, calling the other implementation for now.");
 		return getOrderedByPoints(tags, limit, ascending);
 	}
 
