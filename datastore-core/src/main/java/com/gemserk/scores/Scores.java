@@ -3,6 +3,9 @@ package com.gemserk.scores;
 import java.util.Collection;
 import java.util.Set;
 
+/**
+ * Provides a way to submit and retrieve scores.
+ */
 public interface Scores {
 
 	static enum Range {

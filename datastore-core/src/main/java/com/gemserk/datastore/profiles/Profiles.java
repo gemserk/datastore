@@ -1,5 +1,8 @@
 package com.gemserk.datastore.profiles;
 
+/**
+ * Provides a way to create profiles and update them.
+ */
 public interface Profiles {
 
 	/**
@@ -9,7 +12,7 @@ public interface Profiles {
 	 *            The name of the profile.
 	 * @param guest
 	 *            Defines if the profile should be guest or not.
-	 * @return
+	 * @return The a new Profile with that name.
 	 */
 	Profile register(String name, boolean guest);
 
@@ -17,6 +20,7 @@ public interface Profiles {
 	 * Updates the profile's name if profile was guest, it fails otherwise.
 	 * 
 	 * @param profile
+	 *            The profile to be updated.
 	 */
 	Profile update(Profile profile);
 
