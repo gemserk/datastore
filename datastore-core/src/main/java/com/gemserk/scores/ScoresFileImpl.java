@@ -13,11 +13,14 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.gemserk.datastore.profiles.Profile;
+import com.gemserk.datastore.profiles.Profiles;
+import com.gemserk.datastore.profiles.ProfilesMemoryImpl;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 
 public class ScoresFileImpl implements Scores {
-	
+
 	protected static final Logger logger = LoggerFactory.getLogger(ScoresFileImpl.class);
 
 	class DescendingScoreComparator implements Comparator<Score> {
@@ -36,12 +39,22 @@ public class ScoresFileImpl implements Scores {
 
 	File storage;
 	ScoreSerializer scoreSerializer;
+	Profiles profiles;
+
+	public ScoresFileImpl(File storage, Profiles profiles) {
+		this(storage, new ScoreSerializerJSONImpl(), profiles);
+	}
 
 	public ScoresFileImpl(File storage, ScoreSerializer scoreSerializer) {
-		this.storage = storage;
-		this.scoreSerializer = scoreSerializer ;
+		this(storage, scoreSerializer, new ProfilesMemoryImpl());
 	}
-	
+
+	public ScoresFileImpl(File storage, ScoreSerializer scoreSerializer, Profiles profiles) {
+		this.storage = storage;
+		this.scoreSerializer = scoreSerializer;
+		this.profiles = profiles;
+	}
+
 	public ScoresFileImpl(File storage) {
 		this(storage, new ScoreSerializerJSONImpl());
 	}
@@ -102,8 +115,10 @@ public class ScoresFileImpl implements Scores {
 	}
 
 	@Override
-	public String submit(String privateKey, Score score) {
-		logger.warn("submit score specifying profile private key is not implemented yet, calling the other submit score for now.");
+	public String submit(String profilePrivateKey, Score score) {
+		Profile profile = profiles.getProfile(profilePrivateKey);
+		if (profile != null)
+			score.setProfilePublicKey(profile.getPublicKey());
 		return submit(score);
 	}
 
