@@ -39,5 +39,9 @@ public class ProfilesMemoryImpl implements Profiles {
 		
 		return savedProfile;
 	}
+	
+	public Profile getProfile(String profilePrivateKey) {
+		return profileMap.get(profilePrivateKey);
+	}
 
 }
