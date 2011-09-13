@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -64,7 +65,9 @@ public class ScoresFileImpl implements Scores {
 		Collection<Score> filteredScores = get(tags);
 		ArrayList<Score> scores = new ArrayList<Score>(filteredScores);
 		Collections.sort(scores, ascending ? new AscendingScoreComparator() : new DescendingScoreComparator());
-		logger.warn("filtering by distinct is not implemented yet in getOrderedByPoints");
+		
+		scores = removeDuplicatedScoresForSameProfile(scores);
+		
 		return scores.subList(0, Math.min(quantity, scores.size()));
 	}
 
@@ -83,6 +86,20 @@ public class ScoresFileImpl implements Scores {
 		} catch (IOException e) {
 			throw new RuntimeException("couldnt write to  storage: " + storage, e);
 		}
+	}
+
+	private ArrayList<Score> removeDuplicatedScoresForSameProfile(ArrayList<Score> scores) {
+		HashMap<String, Score> newCollection = new HashMap<String, Score>();
+		ArrayList<Score> newScores = new ArrayList<Score>();
+
+		for (Score score : scores) {
+			if (!newCollection.containsKey(score.getProfilePublicKey())) {
+				newCollection.put(score.getProfilePublicKey(), score);
+				newScores.add(score);
+			}
+		}
+
+		return newScores;
 	}
 
 	private Collection<Score> get(final Set<String> tags) {

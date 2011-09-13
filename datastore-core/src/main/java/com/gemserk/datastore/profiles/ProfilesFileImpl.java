@@ -62,6 +62,9 @@ public class ProfilesFileImpl implements Profiles {
 	public Profile update(Profile profile) {
 		if (!profile.isGuest()) 
 			throw new RuntimeException("can't update a non guest profile");
+		
+		profile.setGuest(false);
+		
 		Set<Profile> profiles = getProfiles();
 		profiles.add(profile);
 		updateProfiles(profiles);
