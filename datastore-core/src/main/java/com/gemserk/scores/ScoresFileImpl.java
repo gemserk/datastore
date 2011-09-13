@@ -10,11 +10,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 
 public class ScoresFileImpl implements Scores {
+	
+	protected static final Logger logger = LoggerFactory.getLogger(ScoresFileImpl.class);
 
 	class DescendingScoreComparator implements Comparator<Score> {
 		@Override
@@ -95,12 +99,14 @@ public class ScoresFileImpl implements Scores {
 
 	@Override
 	public String submit(String privateKey, Score score) {
-		throw new RuntimeException("unimplemented yet");
+		logger.info("submit score specifying profile private key is not implemented yet, calling the other submit score for now.");
+		return submit(score);
 	}
 
 	@Override
 	public Collection<Score> getOrderedByPoints(Set<String> tags, int limit, boolean ascending, Range range) {
-		throw new RuntimeException("unimplemented yet");
+		logger.info("getOrderedByPoints specifying scores range is not implemented yet, calling the other implementation for now.");
+		return getOrderedByPoints(tags, limit, ascending);
 	}
 
 }
