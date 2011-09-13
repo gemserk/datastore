@@ -40,6 +40,7 @@ public class ProfilesMemoryImpl implements Profiles {
 		return savedProfile;
 	}
 	
+	@Override
 	public Profile getProfile(String profilePrivateKey) {
 		return profileMap.get(profilePrivateKey);
 	}

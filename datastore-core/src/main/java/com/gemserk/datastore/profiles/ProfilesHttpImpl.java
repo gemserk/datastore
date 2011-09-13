@@ -21,13 +21,12 @@ import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 public class ProfilesHttpImpl implements Profiles {
 
 	protected static final Logger logger = LoggerFactory.getLogger(ProfilesHttpImpl.class);
 
 	private static String newProfileUrl = "/newProfile";
-	
+
 	private static String updateProfileUrl = "/updateProfile";
 
 	private URI baseUri;
@@ -83,9 +82,9 @@ public class ProfilesHttpImpl implements Profiles {
 
 	@Override
 	public Profile update(Profile profile) {
-		if (!profile.isGuest()) 
+		if (!profile.isGuest())
 			throw new RuntimeException("can't update a non guest profile");
-		
+
 		try {
 			HttpClient httpClient = new DefaultHttpClient();
 
@@ -120,7 +119,13 @@ public class ProfilesHttpImpl implements Profiles {
 		} catch (Exception e) {
 			throw new RuntimeException("failed to register profile", e);
 		}
-		
+
+	}
+
+	@Override
+	public Profile getProfile(String profilePrivateKey) {
+		logger.error("getProfile not implemented yet");
+		throw new RuntimeException("getProfile not implemented yet");
 	}
 
 }

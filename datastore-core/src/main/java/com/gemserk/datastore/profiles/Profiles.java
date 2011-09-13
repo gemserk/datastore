@@ -24,4 +24,13 @@ public interface Profiles {
 	 */
 	Profile update(Profile profile);
 
+	/**
+	 * Returns a Profile with all its information given a profilePrivateKey.
+	 * 
+	 * @param profilePrivateKey
+	 *            The Profile private key identifying it.
+	 * @return The Profile identified by the private key.
+	 */
+	Profile getProfile(String profilePrivateKey);
+
 }

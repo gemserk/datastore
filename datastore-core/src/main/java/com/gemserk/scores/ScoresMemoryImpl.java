@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.Set;
 
 import com.gemserk.datastore.profiles.Profile;
+import com.gemserk.datastore.profiles.Profiles;
 import com.gemserk.datastore.profiles.ProfilesMemoryImpl;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
@@ -28,14 +29,14 @@ public class ScoresMemoryImpl implements Scores {
 	}
 
 	private Collection<Score> scores;
-	private final ProfilesMemoryImpl profiles;
+	private final Profiles profiles;
 
 	public ScoresMemoryImpl() {
 		scores = new ArrayList<Score>();
 		profiles = new ProfilesMemoryImpl();
 	}
 	
-	public ScoresMemoryImpl(ProfilesMemoryImpl profiles) {
+	public ScoresMemoryImpl(Profiles profiles) {
 		this.profiles = profiles;
 		scores = new ArrayList<Score>();
 	}

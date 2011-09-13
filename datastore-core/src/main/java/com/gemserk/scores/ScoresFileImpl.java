@@ -35,12 +35,15 @@ public class ScoresFileImpl implements Scores {
 	}
 
 	File storage;
-	
 	ScoreSerializer scoreSerializer;
 
 	public ScoresFileImpl(File storage, ScoreSerializer scoreSerializer) {
 		this.storage = storage;
 		this.scoreSerializer = scoreSerializer ;
+	}
+	
+	public ScoresFileImpl(File storage) {
+		this(storage, new ScoreSerializerJSONImpl());
 	}
 
 	@Override
@@ -48,6 +51,7 @@ public class ScoresFileImpl implements Scores {
 		Collection<Score> filteredScores = get(tags);
 		ArrayList<Score> scores = new ArrayList<Score>(filteredScores);
 		Collections.sort(scores, ascending ? new AscendingScoreComparator() : new DescendingScoreComparator());
+		logger.warn("filtering by distinct is not implemented yet in getOrderedByPoints");
 		return scores.subList(0, Math.min(quantity, scores.size()));
 	}
 
