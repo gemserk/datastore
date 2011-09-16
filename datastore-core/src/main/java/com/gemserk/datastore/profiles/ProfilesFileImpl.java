@@ -16,12 +16,12 @@ public class ProfilesFileImpl implements Profiles {
 	private final Random random = new Random();
 	private final File storage;
 	private final ProfileJsonSerializer profileJsonSerializer;
-	
+
 	public ProfilesFileImpl(File storage) {
 		this.storage = storage;
 		this.profileJsonSerializer = new ProfileJsonSerializer();
 	}
-	
+
 	String getFileContent() throws IOException {
 		return FileUtils.readFileToString(storage);
 	}
@@ -29,7 +29,7 @@ public class ProfilesFileImpl implements Profiles {
 	void writeFileContent(String value) throws IOException {
 		FileUtils.writeStringToFile(storage, value);
 	}
-	
+
 	void ensureFileExists() throws IOException {
 		if (!storage.exists())
 			writeFileContent("[]");
@@ -38,11 +38,14 @@ public class ProfilesFileImpl implements Profiles {
 	@Override
 	public Profile register(String name, boolean guest) {
 		Profile profile = new Profile(generatePrivateKey(), generatePublicKey(), name, guest);
-		
+
 		Set<Profile> profiles = getProfiles();
 		profiles.add(profile);
 		updateProfiles(profiles);
-		
+
+		if (logger.isInfoEnabled())
+			logger.info("Registering new " + (guest ? "guest" : "non-guest") + " profile with name: " + name);
+
 		return profile;
 	}
 
@@ -55,16 +58,19 @@ public class ProfilesFileImpl implements Profiles {
 	}
 
 	private long getRandomNumber() {
-		return (random.nextInt() % 89999) + 10000;
+		return (random.nextInt(89999)) + 10000;
 	}
 
 	@Override
 	public Profile update(Profile profile) {
-		if (!profile.isGuest()) 
+		if (!profile.isGuest())
 			throw new RuntimeException("can't update a non guest profile");
-		
+
+		if (logger.isInfoEnabled())
+			logger.info("Updating guest profile with name: " + profile.getName() + ", publicKey: " + profile.getPublicKey() + ", privateKey: " + profile.getPrivateKey());
+
 		profile.setGuest(false);
-		
+
 		Set<Profile> profiles = getProfiles();
 		profiles.add(profile);
 		updateProfiles(profiles);
@@ -80,7 +86,7 @@ public class ProfilesFileImpl implements Profiles {
 		}
 		return null;
 	}
-	
+
 	private Set<Profile> getProfiles() {
 		try {
 			ensureFileExists();
@@ -91,7 +97,7 @@ public class ProfilesFileImpl implements Profiles {
 			throw new RuntimeException("couldn't read storage: " + storage, e);
 		}
 	}
-	
+
 	private void updateProfiles(Set<Profile> profiles) {
 		try {
 			String serializedProfiles = profileJsonSerializer.serialize(profiles);

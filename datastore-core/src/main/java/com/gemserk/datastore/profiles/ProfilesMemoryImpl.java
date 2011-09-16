@@ -24,7 +24,7 @@ public class ProfilesMemoryImpl implements Profiles {
 	}
 
 	private long getRandomNumber() {
-		return (random.nextInt() % 89999) + 10000;
+		return (random.nextInt(89999)) + 10000;
 	}
 
 	@Override
