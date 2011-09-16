@@ -16,11 +16,11 @@ public class ProfilesMemoryImpl implements Profiles {
 	}
 
 	private String generatePublicKey() {
-		return "privateKey-" + getRandomNumber();
+		return "publicKey-" + getRandomNumber();
 	}
 
 	private String generatePrivateKey() {
-		return "publicKey-" + getRandomNumber();
+		return "privateKey-" + getRandomNumber();
 	}
 
 	private long getRandomNumber() {

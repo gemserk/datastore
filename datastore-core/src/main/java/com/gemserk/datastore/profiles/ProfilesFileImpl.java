@@ -46,11 +46,11 @@ public class ProfilesFileImpl implements Profiles {
 		return profile;
 	}
 
-	private String generatePublicKey() {
+	private String generatePrivateKey() {
 		return "privateKey-" + getRandomNumber();
 	}
 
-	private String generatePrivateKey() {
+	private String generatePublicKey() {
 		return "publicKey-" + getRandomNumber();
 	}
 
