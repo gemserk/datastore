@@ -146,11 +146,10 @@ public class ScoresHttpImpl implements Scores {
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
 
 			params.add(new BasicNameValuePair("gameKey", gameKey));
-
+			params.add(new BasicNameValuePair("name", score.getName()));
+			
 			if (profilePrivateKey != null)
 				params.add(new BasicNameValuePair("profilePrivateKey", profilePrivateKey));
-			else
-				params.add(new BasicNameValuePair("name", score.getName()));
 
 			params.add(new BasicNameValuePair("points", Long.toString(score.getPoints())));
 
