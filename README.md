@@ -57,7 +57,7 @@ Request top 20 daily scores:
 Finally
 -------
 
-That's all for now, explore the API by yourself and propose improvements by suggesting new stuff on [Issues][issues] page. 
+That's all for now, explore the API by yourself and feel free to suggest enhancements or bugs on [Issues][issues] page. 
 
 [issues]: https://github.com/gemserk/datastore/issues
 [datastore]: git://github.com/gemserk/datastore.git
