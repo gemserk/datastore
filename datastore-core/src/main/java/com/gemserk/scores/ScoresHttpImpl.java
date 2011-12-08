@@ -150,6 +150,8 @@ public class ScoresHttpImpl implements Scores {
 			
 			if (profilePrivateKey != null)
 				params.add(new BasicNameValuePair("profilePrivateKey", profilePrivateKey));
+			else if (score.getProfilePublicKey() != null)
+				params.add(new BasicNameValuePair("profilePublicKey", score.getProfilePublicKey()));
 
 			params.add(new BasicNameValuePair("points", Long.toString(score.getPoints())));
 
